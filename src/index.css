@@ -31,4 +31,7 @@ body {
   font-family: Nsans-Regular, "Segoe UI", Tahoma, Verdana, sans-serif;
   background: var(--black);
   color: var(--white);
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
 }
