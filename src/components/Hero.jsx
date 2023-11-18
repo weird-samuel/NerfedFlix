@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import endpoints from "../services/movieservices";
+import endpoints, { createImageUrl } from "../services/movieservices";
 
 const Hero = () => {
   const [movie, setMovie] = useState({});
@@ -34,10 +34,10 @@ const Hero = () => {
         <div className="absolute w-full h-[500px] lg:h-screen bg-gradient-to-r from-black" />
         <img
           className="w-full h-full object-cover object-top"
-          src={`https://image.tmdb.org/t/p/original${backdrop_path}`}
+          src={createImageUrl(backdrop_path, "original")}
           alt={title}
         />
-        <div className=" absolute w-full top-[70%] md:top-[60%] p-4 md:p-8">
+        <div className=" absolute w-full top-[10%] lg:top-[50%] p-4 md:p-8">
           <h1 className=" text-3xl md:text-6xl font-nsans-bold">{title}</h1>
           <div className="mt-8 mb-4">
             <button className="capitalize border bg-gray-300 text-black py-2 px-4">
@@ -46,10 +46,12 @@ const Hero = () => {
             <button className="capitalize border border-gray-300 py-2 px-4 ml-4">
               Watch later
             </button>
-            <p className="text-gray-300 text-sm mb-2 mt-2">{release_date}</p>
-            <p className="w-full md:max-w-[70%] lg:max-w-[50%]">
-              {truncate(overview, 220)}
-            </p>
+            <div>
+              <p className="text-gray-300 text-sm mb-2 mt-2">{release_date}</p>
+              <p className="w-full md:max-w-[70%] lg:max-w-[50%] xl:max-w-[35%] text-gray-200">
+                {truncate(overview, 220)}
+              </p>
+            </div>
           </div>
         </div>
       </div>

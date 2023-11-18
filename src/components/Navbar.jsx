@@ -13,7 +13,7 @@ const Navbar = () => {
           <button className="Capitalize py-4">login</button>
         </Link>
         <Link to="/signup">
-          <button className="Capitalize bg-red-600 px-6 py-2 rounded cursor-pointer">
+          <button className="Capitalize bg-red-600 px-6 py-2 ml-4 rounded cursor-pointer">
             sign up
           </button>
         </Link>
