@@ -6,9 +6,9 @@ const MovieItem = ({ movie }) => {
   const [liked, setLiked] = useState(false);
   const { title, backdrop_path, poster_path } = movie;
 
-  cost markFaveShow = async () => {
-    const userEmail = user?.email;
-  }
+  //cost markFaveShow = async () => {
+    //const userEmail = user?.email;
+  //}
   return (
     <div className="relative w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block rounded-lg overflow-hidden cursor-pointer m-2">
       <img
