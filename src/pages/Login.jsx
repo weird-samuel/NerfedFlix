@@ -1,16 +1,25 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { UserAuth } from "../context/AuthContext";
 
 const Login = () => {
   const [rememberLogin, setRememberLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
-    // prevent page refresh
+  const { logIn } = UserAuth(); // Destructure the result of UserAuth
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email, password, rememberLogin);
+    try {
+      await logIn(email, password);
+      navigate("/");
+    } catch (error) {
+      console.error("Error logging in:", error.message);
+    }
   };
+
   return (
     <>
       <div className="w-full h-screen">
@@ -23,7 +32,7 @@ const Login = () => {
         <div className="fixed w-full px-4 py-24 z-20">
           <div className="max-w-[450px] h-[600px] mx-auto bg-black/80 rounded-lg">
             <div className="max-w-[320px] mx-auto py-16">
-              <h1 className="text-3xl font-nsans-bold">Sign up</h1>
+              <h1 className="text-3xl font-nsans-bold">Log in</h1>
               <form
                 onSubmit={handleSubmit}
                 className="w-full flex flex-col py-4"

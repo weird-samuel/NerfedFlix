@@ -5,6 +5,7 @@ import Profile from "./pages/Profile";
 import Signup from "./pages/Signup";
 import Navbar from "./components/Navbar";
 import { AuthContextProvider } from "./context/AuthContext";
+import ProtectedRoutes from "./components/ProtectedRoutes";
 
 const App = () => {
   return (
@@ -15,7 +16,14 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoutes>
+                <Profile />
+              </ProtectedRoutes>
+            }
+          />
         </Routes>
       </AuthContextProvider>
     </>

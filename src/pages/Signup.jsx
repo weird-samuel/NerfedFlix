@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { UserAuth } from "../context/AuthContext";
 
 const Signup = () => {
   const [rememberLogin, setRememberLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { signUp } = useAuth();
+  const { signUp } = UserAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -18,7 +18,6 @@ const Signup = () => {
       navigate("/");
     } catch (error) {
       console.error("Error signing up:", error.message);
-      // Handle error (display a message to the user, etc.)
     }
   };
 
