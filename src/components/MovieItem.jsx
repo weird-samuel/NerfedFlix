@@ -2,9 +2,11 @@ import { useState } from "react";
 import { createImageUrl } from "../services/movieservices";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { UserAuth } from "../context/AuthContext";
 import { db } from "../services/firebase";
 const MovieItem = ({ movie }) => {
   const [liked, setLiked] = useState(false);
+  const { user } = UserAuth();
   const { title, backdrop_path, poster_path } = movie;
 
   const markFaveShow = async () => {
@@ -14,7 +16,7 @@ const MovieItem = ({ movie }) => {
       const userDoc = doc(db, "users", userEmail);
       setLiked(!liked);
       await updateDoc(userDoc, {
-        faveShows: arrayUnion(...movie),
+        faveShows: arrayUnion({ ...movie }),
       });
     } else {
       alert("You must be logged in to mark a show as a favorite");
@@ -32,7 +34,7 @@ const MovieItem = ({ movie }) => {
         <p className="whitespace-normal text-xs md:text-sm flex justify-center items-center h-full font-nsans-bold text-center">
           {movie.title}
         </p>
-        <p onClick={markFaveShow}>
+        <p onClick={markFaveShow} className="cursor-pointer">
           {liked ? (
             <FaHeart
               size={20}
