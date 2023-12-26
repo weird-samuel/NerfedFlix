@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
+import { useSnackbar } from "notistack";
 
 const Login = () => {
   const [rememberLogin, setRememberLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { enqueueSnackbar } = useSnackbar();
 
   const { logIn } = UserAuth(); // Destructure the result of UserAuth
   const navigate = useNavigate();
@@ -14,9 +16,13 @@ const Login = () => {
     e.preventDefault();
     try {
       await logIn(email, password);
+      enqueueSnackbar("Logged in successfully!", { variant: "success" });
       navigate("/");
     } catch (error) {
-      console.error("Error logging in:", error.message);
+      enqueueSnackbar("Error logging in:", error.message),
+        {
+          variant: "error",
+        };
     }
   };
 

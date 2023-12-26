@@ -4,10 +4,12 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { UserAuth } from "../context/AuthContext";
 import { db } from "../services/firebase";
+import { useSnackbar } from "notistack";
 const MovieItem = ({ movie }) => {
   const [liked, setLiked] = useState(false);
   const { user } = UserAuth();
   const { title, backdrop_path, poster_path } = movie;
+  const { enqueueSnackbar } = useSnackbar();
 
   const markFaveShow = async () => {
     const userEmail = user?.email;
@@ -19,7 +21,10 @@ const MovieItem = ({ movie }) => {
         faveShows: arrayUnion({ ...movie }),
       });
     } else {
-      alert("You must be logged in to mark a show as a favorite");
+      enqueueSnackbar("You must be logged in to mark a show as a favorite"),
+        {
+          variant: "error",
+        };
     }
   };
   return (

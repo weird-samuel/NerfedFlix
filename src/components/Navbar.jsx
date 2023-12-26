@@ -1,16 +1,22 @@
 import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
+import { useSnackbar } from "notistack";
 
 const Navbar = () => {
   const { user, logOut } = UserAuth();
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleLogout = async () => {
     try {
       await logOut();
+      enqueueSnackbar("Logged out successfully!", { variant: "success" });
       navigate("/");
     } catch (error) {
-      console.error("Error logging out:", error.message);
+      enqueueSnackbar("Error logging out:", error.message),
+        {
+          variant: "error",
+        };
     }
   };
 
@@ -18,7 +24,7 @@ const Navbar = () => {
     <div className="absolute w-full p-4 flex items-center justify-between z-50">
       <Link to="/">
         <h1 className="uppercase text-red-600 font-nsans-bold cursor-pointer text-3xl lg:text-5xl sm:text-2xl">
-          nerflix
+          neredflix
         </h1>
       </Link>
 

@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
+import { useSnackbar } from "notistack";
 
 const Signup = () => {
   const [rememberLogin, setRememberLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { enqueueSnackbar } = useSnackbar();
 
   const { signUp } = UserAuth();
   const navigate = useNavigate();
@@ -15,9 +17,13 @@ const Signup = () => {
 
     try {
       await signUp(email, password);
+      enqueueSnackbar("Signed up successfully!", { variant: "success" });
       navigate("/");
     } catch (error) {
-      console.error("Error signing up:", error.message);
+      enqueueSnackbar("Error signing up:", error.message),
+        {
+          variant: "error",
+        };
     }
   };
 
