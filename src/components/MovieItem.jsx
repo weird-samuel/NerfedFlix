@@ -18,7 +18,7 @@ const MovieItem = ({ movie }) => {
       const userDoc = doc(db, "users", userEmail);
       setLiked(!liked);
       await updateDoc(userDoc, {
-        faveShows: arrayUnion({ ...movie }),
+        favShows: arrayUnion({ ...movie }),
       });
     } else {
       enqueueSnackbar("You must be logged in to mark a show as a favorite"),
